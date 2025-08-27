@@ -28,7 +28,8 @@ export class ShoppingListComponent implements OnInit {
   }
 
   addItemToCart(item: Item): void {
-    this.shoppingService.addItemToCart(item);
+    const q = this.tempQuantities[item.id] || item.quantity;
+    this.shoppingService.addItemToCart(Number(q));
   }
 
   onQuantityChange(event: any, item: any) {

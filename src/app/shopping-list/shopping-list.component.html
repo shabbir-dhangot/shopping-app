@@ -16,6 +16,10 @@
       @if (item.status === "purchased") {
       <p style="color: green;">Status: Purchased total {{ item.quantity }}</p>
       }
+      @if (item.status === "pending") {
+        <p style="color: orange;">Status: Pending</p>
+        <p>Available Quantity: {{item.quantity}}</p>
+      }
     </div>
     @if (item.status === "pending") {
     <ui5-combobox placeholder="Quantity" value="{{tempQuantities[item.id] || item.quantity}}" (change)="onQuantityChange($event, item)">

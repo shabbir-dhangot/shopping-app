@@ -7,6 +7,7 @@ import { AppState } from '../store/reducers/shopping-items.reducer';
 import { take } from 'rxjs/internal/operators/take';
 import { AddItem, ShoppingItemsActionTypes } from '../store/action/shopping-items.actions';
 import { Item } from '../service/shopping-servie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-shopping-item',
@@ -17,7 +18,7 @@ import { Item } from '../service/shopping-servie.service';
 export class AddNewShoppingItemComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>, private router:Router) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0), Validators.max(1000000)]],
@@ -42,6 +43,8 @@ export class AddNewShoppingItemComponent {
             "image": this.form.value.image
           }
           this.store.dispatch(new AddItem(item));
+          alert('Item added successfully!');
+          this.router.navigate(['/']);
         }
       });
     }

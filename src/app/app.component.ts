@@ -23,4 +23,12 @@ export class AppComponent {
       this.router.navigate(['/']);
     }
 
+    navigateToCart(){
+      if(this.cartItemCount() === 0) {
+        alert("Cart is empty");
+      } else {
+        alert("yet to implement cart navigation");
+      }
+    }
+
 }

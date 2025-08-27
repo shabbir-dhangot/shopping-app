@@ -24,7 +24,7 @@ export class ShoppingService {
     return this.http.get<Item[]>(`${this.endpoint}/api/items`);
   }
 
-  addItemToCart(item: Item): void {
-    this.itemsCount.update(count => count + (item.quantity || 1));
+  addItemToCart(number: number): void {
+    this.itemsCount.update(count => count + number);
   }
 }
