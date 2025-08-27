@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./shopping-list/shopping-list.routes').then(m => m.routes)
+      import('./shopping-list/shopping-list.module').then(m => m.ShoppingListModule)
   },
     
 ];

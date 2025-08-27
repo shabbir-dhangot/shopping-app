@@ -1,7 +1,14 @@
-<div *ngIf="loading$ | async">Loading...</div>
-<div *ngIf="error$ | async as error" class="error">Error: {{ error }}</div>
-<ul *ngIf="(items$ | async) as items">
-  <li *ngFor="let item of items">
-    {{ item.name }} <span *ngIf="item.status">({{ item.status }})</span>
-  </li>
-</ul>
+@if (items$ | async; as items) {
+  <div class="flex-container">
+    @for (item of items; track item) {
+      <ui5-card>
+        <img src="{{ item.image || '/assets/images/sap-logo-svg.svg' }}" alt="{{ item.name }}" />
+        <div class="card-content">
+          <h3>{{ item.name }}</h3>
+          <p>Price: ${{ item.price }}</p>
+          <p>Status: {{ item.status || 'Available' }}</p>
+        </div>
+      </ui5-card>
+    }
+  </div>
+}

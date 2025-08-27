@@ -1,10 +1,11 @@
 import { ActionReducerMap } from "@ngrx/store";
-import { reducer as shoppingItemReduce, shoppingItemsFeatureKey, ShoppingItemsState } from "./shopping-items.reducer";
+import { shoppingItemsFeatureKey, shoppingItemsReducer, ShoppingItemsState } from "./shopping-items.reducer";
+import { ShoppingItemsActions } from "../action/shopping-items.actions";
 
 export interface State {
   [shoppingItemsFeatureKey]: ShoppingItemsState;
 }
 
-export const reducers: ActionReducerMap<State> = {
-  [shoppingItemsFeatureKey]: shoppingItemReduce,
+export const reducers: ActionReducerMap<State, ShoppingItemsActions> = {
+  [shoppingItemsFeatureKey]: shoppingItemsReducer,
 };
