@@ -1,14 +1,33 @@
+<ui5-segmented-button (selection-change)="onSegmentedButtonChange($event)">
+    <ui5-segmented-button-item id="all" selected>All</ui5-segmented-button-item>
+    <ui5-segmented-button-item id="purchased">Purchased</ui5-segmented-button-item>
+    <ui5-segmented-button-item id="pending">Pending</ui5-segmented-button-item>
+</ui5-segmented-button>
 @if (items$ | async; as items) {
-  <div class="flex-container">
-    @for (item of items; track item) {
-      <ui5-card>
-        <img src="{{ item.image || '/assets/images/sap-logo-svg.svg' }}" alt="{{ item.name }}" />
-        <div class="card-content">
-          <h3>{{ item.name }}</h3>
-          <p>Price: ${{ item.price }}</p>
-          <p>Status: {{ item.status || 'Available' }}</p>
-        </div>
-      </ui5-card>
+<div class="flex-container">
+  @for (item of items; track item) {
+  <ui5-card>
+    @if (item.image) {
+    <img src="{{ item.image }}" alt="{{ item.name }}" />
     }
-  </div>
+    <div class="card-content">
+      <h3>{{ item.name }}</h3>
+      <p>Price: ${{ item.price }}</p>
+      @if (item.status === "purchased") {
+      <p style="color: green;">Status: Purchased total {{ item.quantity }}</p>
+      }
+    </div>
+    @if (item.status === "pending") {
+    <ui5-combobox placeholder="Quantity" value="{{tempQuantities[item.id] || item.quantity}}" (change)="onQuantityChange($event, item)">
+      <ui5-cb-item text="0"></ui5-cb-item>
+      <ui5-cb-item text="1"></ui5-cb-item>
+      <ui5-cb-item text="2"></ui5-cb-item>
+      <ui5-cb-item text="3"></ui5-cb-item>
+    </ui5-combobox>
+    <ui5-button design="Default" (click)="addItemToCart(item)">Add to Cart</ui5-button>
+    }
+    
+  </ui5-card>
+  }
+</div>
 }

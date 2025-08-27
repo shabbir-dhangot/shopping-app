@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-flex">
+  <ui5-input name="name" placeholder="Item Name" formControlName="name"></ui5-input>
+  @if (name?.invalid && (name?.dirty || name?.touched)) {
+    @if (name?.errors?.['required']) {
+      <small style="color:red;">Name is required.</small>
+    }
+  }
+  <ui5-input name="price" placeholder="Price" type="Number" formControlName="price"></ui5-input>
+  @if (price.invalid && (price.dirty || price.touched)) {
+  @if (price.errors?.['required']) {
+    <small style="color:red;">Price is required.</small>
+  }
+  @if (price.errors?.['min']) {
+    <small style="color:red;">Price must be at least 1.</small>
+  }
+  @if (price.errors?.['max']) {
+    <small style="color:red;">Price cannot exceed 1000000.</small>
+  }
+}
+  <ui5-input name="image" placeholder="Image URL" formControlName="image"></ui5-input>
+  <ui5-button design="Emphasized" type="Submit" [disabled]="form.invalid">Add Item</ui5-button>
+</form>

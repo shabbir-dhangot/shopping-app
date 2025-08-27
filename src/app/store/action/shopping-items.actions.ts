@@ -5,6 +5,8 @@ export enum ShoppingItemsActionTypes {
   LoadShoppingItems = '[ShoppingItems] Load Items',
   LoadShoppingItemsSuccess = '[ShoppingItems] Load Items Success',
   LoadShoppingItemsFailure = '[ShoppingItems] Load Items Failure',
+  UpdateQuantity = '[ShoppingItems] Update Quantity',
+  AddItem = '[ShoppingItems] Add Item'
 }
 
 export class LoadShoppingItems implements Action {
@@ -21,4 +23,15 @@ export class LoadShoppingItemsFailure implements Action {
   constructor(public payload: { error: unknown }) {}
 }
 
-export type ShoppingItemsActions = LoadShoppingItems | LoadShoppingItemsSuccess | LoadShoppingItemsFailure;
+export class UpdateQuantity implements Action {
+  readonly type = ShoppingItemsActionTypes.UpdateQuantity;
+  constructor(public item: Item, public quantity: number) {}
+}
+
+export class AddItem implements Action {
+  readonly type = ShoppingItemsActionTypes.AddItem;
+  constructor(public item: Item) {}
+}
+
+
+export type ShoppingItemsActions = LoadShoppingItems | LoadShoppingItemsSuccess | LoadShoppingItemsFailure | UpdateQuantity | AddItem;

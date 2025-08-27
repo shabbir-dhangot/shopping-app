@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 export interface Item {
   id: number;
@@ -7,12 +7,14 @@ export interface Item {
   price: number;
   status?: string;
   image?: string;
+  quantity?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingService {
+  itemsCount = signal(0);
 
   endpoint = 'http://localhost:3000';
 
@@ -20,5 +22,9 @@ export class ShoppingService {
 
   loadShoppingItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.endpoint}/api/items`);
+  }
+
+  addItemToCart(item: Item): void {
+    this.itemsCount.update(count => count + (item.quantity || 1));
   }
 }
